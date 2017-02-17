@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import live.lqs.com.live.EvenBus.BusFactory;
+
 /**
  * Created by dell on 2017/1/20.
  */
@@ -32,4 +34,16 @@ public abstract class ABaseFragment extends Fragment {
 
     protected abstract int getLayoutRes();
 
- }
+    //注册事件总线<OTTO>
+    @Override
+    public void onResume() {
+        BusFactory.getSingletonEvevBus().register(this);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        BusFactory.getSingletonEvevBus().unregister(this);
+        super.onPause();
+    }
+}
